@@ -790,18 +790,20 @@ MonoBehaviour:
   serverTickRate: 30
   serverBatching: 1
   serverBatchInterval: 0
-  offlineScene: 
-  onlineScene: 
+  offlineScene: Assets/Scenes/Menu.unity
+  onlineScene: Assets/Scenes/Lobby.unity
   transport: {fileID: 1758037029}
   networkAddress: localhost
   maxConnections: 100
   disconnectInactiveConnections: 0
   disconnectInactiveTimeout: 60
   authenticator: {fileID: 0}
-  playerPrefab: {fileID: 0}
-  autoCreatePlayer: 0
+  playerPrefab: {fileID: 5436140673223675944, guid: 50cecb44b43d17b43a233be308800d07, type: 3}
+  autoCreatePlayer: 1
   playerSpawnMethod: 0
-  spawnPrefabs: []
+  spawnPrefabs:
+  - {fileID: 8879342188901821774, guid: aea7667ecf428c84fb63afd4e95723c9, type: 3}
+  GamePlayerPrefab: {fileID: 2741659864562010075, guid: aea7667ecf428c84fb63afd4e95723c9, type: 3}
 --- !u!4 &1758037031
 Transform:
   m_ObjectHideFlags: 0

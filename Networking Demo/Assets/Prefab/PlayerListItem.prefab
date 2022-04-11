@@ -51,6 +51,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2af1db2516fcab4ca9beceb5d1c0b08, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  PlayerName: 
+  ConnectionID: 0
+  PlayerSteamID: 0
+  PlayerNameText: {fileID: 4711029229655262287}
+  PlayerIcon: {fileID: 4711029229236752865}
 --- !u!1 &4711029229194861237
 GameObject:
   m_ObjectHideFlags: 0

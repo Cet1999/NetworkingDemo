@@ -81,22 +81,79 @@ public class LobbyController : MonoBehaviour
     {
         foreach(PlayerObjectController player in Manager.GamePlayers)
         {
-            GameObject NewPlayerItem = Instantiate()
+            GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab) as GameObject;
+            PlayerListItem NewPlayerItemScript = NewPlayerItem.GetComponent<PlayerListItem>();
+
+            NewPlayerItemScript.PlayerName = player.PlayerName;
+            NewPlayerItemScript.ConnectionID = player.ConnectionID;
+            NewPlayerItemScript.PlayerSteamID = player.PlayerSteamID;
+            NewPlayerItemScript.SetPlayerValues();
+
+            NewPlayerItem.transform.SetParent(PlayerListViewContent.transform);
+            NewPlayerItem.transform.localScale = Vector3.one;
+
+            PlayerListItems.Add(NewPlayerItemScript);
         }
+        PlayerItemCreated = true;
     }
 
     public void CreateClientPlayerItem()
     {
+        foreach (PlayerObjectController player in Manager.GamePlayers)
+        {
+            if (!PlayerListItems.Any(b => b.ConnectionID == player.ConnectionID))
+            {
+                GameObject NewPlayerItem = Instantiate(PlayerListItemPrefab) as GameObject;
+                PlayerListItem NewPlayerItemScript = NewPlayerItem.GetComponent<PlayerListItem>();
 
+                NewPlayerItemScript.PlayerName = player.PlayerName;
+                NewPlayerItemScript.ConnectionID = player.ConnectionID;
+                NewPlayerItemScript.PlayerSteamID = player.PlayerSteamID;
+                NewPlayerItemScript.SetPlayerValues();
+
+                NewPlayerItem.transform.SetParent(PlayerListViewContent.transform);
+                NewPlayerItem.transform.localScale = Vector3.one;
+
+                PlayerListItems.Add(NewPlayerItemScript);
+            }
+        }
     }
 
     public void RemovePlayerItem()
     {
+        List<PlayerListItem> playerListItemToRemove = new List<PlayerListItem>();
 
+        foreach(PlayerListItem playerListItem in PlayerListItems)
+        {
+            if(!Manager.GamePlayers.Any(b => b.ConnectionID == playerListItem.ConnectionID))
+            {
+                playerListItemToRemove.Add(playerListItem);
+            }
+        }
+        if (playerListItemToRemove.Count > 0)
+        {
+            foreach(PlayerListItem itemToRemove in playerListItemToRemove)
+            {
+                GameObject ObjectToRemove = itemToRemove.gameObject;
+                PlayerListItems.Remove(itemToRemove);
+                Destroy(ObjectToRemove);
+                ObjectToRemove = null;
+            }
+        }
     }
 
     public void UpdatePlayerItem()
     {
-
+        foreach (PlayerObjectController player in Manager.GamePlayers)
+        {
+            foreach (PlayerListItem PlayerListItemScript in PlayerListItems)
+            {
+                if (PlayerListItemScript.ConnectionID == player.ConnectionID)
+                {
+                    PlayerListItemScript.PlayerName = player.PlayerName;
+                    PlayerListItemScript.SetPlayerValues();
+                }
+            }
+        }
     }
 }
