@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Steamworks;
 using Mirror;
+using UnityEngine.SceneManagement;
 
 public class VoiceChat : NetworkBehaviour
 {
@@ -19,6 +20,13 @@ public class VoiceChat : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (SceneManager.GetActiveScene().name == "Game")
+        {
+            AS.spatialBlend = 1;
+        } else
+        {
+            AS.spatialBlend = 0;
+        }
         if (Identity.isLocalPlayer)
         {
             if (Input.GetKeyDown(KeyCode.T))
