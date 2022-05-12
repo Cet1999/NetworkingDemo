@@ -6,14 +6,14 @@ using Mirror;
 
 public class VoiceChat : NetworkBehaviour
 {
-    //public float AudioValue = 0; // 0 - 1
+    public bool isTalking = false;
     NetworkIdentity Identity;
     AudioSource AS;
     void Start()
     {
         Identity = GetComponent<NetworkIdentity>();
         AS = GetComponent<AudioSource>();
-        if (Identity.isLocalPlayer) SteamUser.StartVoiceRecording();
+        //if (Identity.isLocalPlayer) SteamUser.StartVoiceRecording();
     }
 
     // Update is called once per frame
@@ -21,19 +21,24 @@ public class VoiceChat : NetworkBehaviour
     {
         if (Identity.isLocalPlayer)
         {
-            /*if (Input.GetKeyDown(KeyCode.V))
+            if (Input.GetKeyDown(KeyCode.T))
             {
-                SteamUser.StartVoiceRecording();
+                if (isTalking)
+                {
+                    isTalking = false;
+                    SteamUser.StopVoiceRecording();
+                }
+                else
+                {
+                    isTalking = true;
+                    SteamUser.StartVoiceRecording();
+                }
             }
-            if (Input.GetKeyUp(KeyCode.V))
-            {
-                SteamUser.StopVoiceRecording();
-            }*/
             uint Compressed;
             EVoiceResult ret = SteamUser.GetAvailableVoice(out Compressed);
             if (ret == EVoiceResult.k_EVoiceResultOK && Compressed > 1024)
             {
-                Debug.Log(Compressed);
+                //Debug.Log(Compressed);
                 byte[] ByteBuffer = new byte[1024];
                 ret = SteamUser.GetVoice(true, ByteBuffer, 1024, out uint ByteCount);
                 if (ret == EVoiceResult.k_EVoiceResultOK && ByteCount > 0)
@@ -41,7 +46,10 @@ public class VoiceChat : NetworkBehaviour
                     Cmd_SendData(ByteBuffer, ByteCount);
                 }
             }
-
+        }
+        else
+        {
+            isTalking = AS.isPlaying;
         }
     }
 

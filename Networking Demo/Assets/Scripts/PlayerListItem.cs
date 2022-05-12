@@ -46,7 +46,7 @@ public class PlayerListItem : MonoBehaviour
 
     private void Update()
     {
-        TalkingDot.enabled = PlayerObjectRef.GetComponent<AudioSource>().isPlaying;
+        TalkingDot.enabled = PlayerObjectRef.GetComponent<VoiceChat>().isTalking;
     }
 
     public void SetPlayerValues()
