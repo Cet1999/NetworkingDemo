@@ -6,15 +6,18 @@ using Steamworks;
 
 public class PlayerListItem : MonoBehaviour
 {
+    [InspectorName("Steam User Info")]
     public string PlayerName;
     public int ConnectionID;
     public ulong PlayerSteamID;
     private bool AvatarReceived;
-
+    public GameObject PlayerObjectRef;
+    [InspectorName("UI Elements")]
     public Text PlayerNameText;
     public RawImage PlayerIcon;
     public Text PlayerReadyText;
     public bool Ready;
+    public Image TalkingDot;
 
 
     protected Callback<AvatarImageLoaded_t> ImageLoaded;
@@ -39,6 +42,11 @@ public class PlayerListItem : MonoBehaviour
     private void Start()
     {
         ImageLoaded = Callback<AvatarImageLoaded_t>.Create(OnImageLoaded);
+    }
+
+    private void Update()
+    {
+        TalkingDot.enabled = PlayerObjectRef.GetComponent<AudioSource>().isPlaying;
     }
 
     public void SetPlayerValues()

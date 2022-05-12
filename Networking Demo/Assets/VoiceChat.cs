@@ -6,6 +6,7 @@ using Mirror;
 
 public class VoiceChat : NetworkBehaviour
 {
+    //public float AudioValue = 0; // 0 - 1
     NetworkIdentity Identity;
     AudioSource AS;
     void Start()
@@ -30,7 +31,6 @@ public class VoiceChat : NetworkBehaviour
             }*/
             uint Compressed;
             EVoiceResult ret = SteamUser.GetAvailableVoice(out Compressed);
-            Debug.Log(Compressed);
             if (ret == EVoiceResult.k_EVoiceResultOK && Compressed > 1024)
             {
                 Debug.Log(Compressed);
@@ -53,6 +53,10 @@ public class VoiceChat : NetworkBehaviour
 
         for (int i = 0; i < players.Length; i++)
         {
+            if (this == players[i])
+            {
+                continue;
+            }
             Target_PlaySound(players[i].GetComponent<NetworkIdentity>().connectionToClient, data, size);
         }
     }
@@ -67,7 +71,7 @@ public class VoiceChat : NetworkBehaviour
         if (ret == EVoiceResult.k_EVoiceResultOK && bytesWritten2 > 0)
         {
             AS.clip = AudioClip.Create(UnityEngine.Random.Range(100, 1000000).ToString(), 22050, 1, 22050, false);
-
+            
             float[] test = new float[22050];
             for (int i = 0; i < test.Length; i++)
             {

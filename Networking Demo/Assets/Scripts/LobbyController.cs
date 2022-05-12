@@ -136,6 +136,7 @@ public class LobbyController : MonoBehaviour
             NewPlayerItemScript.ConnectionID = player.ConnectionID;
             NewPlayerItemScript.PlayerSteamID = player.PlayerSteamID;
             NewPlayerItemScript.Ready = player.Ready;
+            NewPlayerItemScript.PlayerObjectRef = player.gameObject;
             NewPlayerItemScript.SetPlayerValues();
 
 
@@ -160,6 +161,7 @@ public class LobbyController : MonoBehaviour
                 NewPlayerItemScript.ConnectionID = player.ConnectionID;
                 NewPlayerItemScript.PlayerSteamID = player.PlayerSteamID;
                 NewPlayerItemScript.Ready = player.Ready;
+                NewPlayerItemScript.PlayerObjectRef = player.gameObject;
                 NewPlayerItemScript.SetPlayerValues();
 
 
@@ -182,7 +184,7 @@ public class LobbyController : MonoBehaviour
                     PlayerListItemScript.PlayerName = player.PlayerName;
                     PlayerListItemScript.Ready = player.Ready;
                     PlayerListItemScript.SetPlayerValues();
-                    if(player == LocalplayerController)
+                    if (player == LocalplayerController)
                     {
                         UpdateButton();
                     }
