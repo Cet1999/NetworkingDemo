@@ -5,7 +5,7 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
-    PlayerObjectController LocalPlayerManager;
+    public PlayerObjectController LocalPlayerManager;
     CustomNetworkManager NetworkManager;
     
     void Start()
