@@ -4,11 +4,14 @@ using UnityEngine;
 using Mirror;
 using UnityEngine.SceneManagement;
 using Steamworks;
+using System;
 
 public class CustomNetworkManager : NetworkManager
 {
     [SerializeField] private PlayerObjectController GamePlayerPrefab;
     public List<PlayerObjectController> GamePlayers { get; } = new List<PlayerObjectController>();
+
+    public static event Action<NetworkConnection> OnServerReadied;
 
 
     public override void OnServerAddPlayer(NetworkConnection conn)
@@ -25,8 +28,16 @@ public class CustomNetworkManager : NetworkManager
         }
     }
 
-   public void StartGame(string SceneName)
-   {
+    public void StartGame(string SceneName)
+    {
         ServerChangeScene(SceneName);
-   }
+    }
+
+    public override void OnServerReady(NetworkConnection conn)
+    {
+        base.OnServerReady(conn);
+
+        OnServerReadied?.Invoke(conn);
+    }
+
 }
