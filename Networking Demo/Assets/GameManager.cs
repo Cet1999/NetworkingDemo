@@ -11,12 +11,16 @@ public class GameManager : NetworkBehaviour
     void Start()
     {
         NetworkManager = FindObjectOfType<CustomNetworkManager>();
-        PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
-        foreach(PlayerObjectController g in AllPlayerManagers)
+        if (LocalPlayerManager == null)
         {
-            if (g.isLocalPlayer)
+            PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
+            foreach (PlayerObjectController g in AllPlayerManagers)
             {
-                LocalPlayerManager = g;
+                Debug.Log(g.isLocalPlayer);
+                if (g.isLocalPlayer)
+                {
+                    LocalPlayerManager = g;
+                }
             }
         }
         SpawnLocalPlayer();
@@ -25,12 +29,12 @@ public class GameManager : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public void SpawnLocalPlayer()
     {
-        if (LocalPlayerManager.connectionToClient.isReady)
+        if (LocalPlayerManager.connectionToServer.isReady)
         {
             LocalPlayerManager.CmdSpawnPlayerCharacter();
         }
