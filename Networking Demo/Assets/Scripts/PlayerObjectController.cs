@@ -36,16 +36,15 @@ public class PlayerObjectController : NetworkBehaviour
         DontDestroyOnLoad(this.gameObject);
     }
 
+    
+
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Game" && ActivePlayerCharacter == null && isLocalPlayer)
-        {
-            CmdSpawnPlayerCharacter();
-        }
+
     }
 
     [Command]
-    void CmdSpawnPlayerCharacter()
+    public void CmdSpawnPlayerCharacter()
     {
         GameObject Character = Instantiate(PlayerCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
         NetworkServer.Spawn(Character, connectionToClient);
