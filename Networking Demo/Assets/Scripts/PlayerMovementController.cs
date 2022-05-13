@@ -11,19 +11,13 @@ public class PlayerMovementController : NetworkBehaviour
 
     private void Start()
     {
-        PlayerModel.SetActive(false);
+        SetPosition();
     }
 
     private void Update()
     {
         if(SceneManager.GetActiveScene().name == "Game")
         {
-            if(PlayerModel.activeSelf == false)
-            {
-                SetPosition();
-                PlayerModel.SetActive(true);
-            }
-
             if (hasAuthority)
             {
                 Movement();

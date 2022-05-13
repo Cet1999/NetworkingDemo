@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 using Steamworks;
+using UnityEngine.SceneManagement;
 
 public class PlayerObjectController : NetworkBehaviour
 {
@@ -12,6 +13,9 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar] public ulong PlayerSteamID;
     [SyncVar(hook = nameof(PlayerNameUpdate))] public string PlayerName;
     [SyncVar(hook = nameof(PlayerReadyUpdate))] public bool Ready;
+
+    public GameObject PlayerCharacterPrefab;
+    [SyncVar] public GameObject ActivePlayerCharacter;
 
     private CustomNetworkManager manager;
 
@@ -30,6 +34,22 @@ public class PlayerObjectController : NetworkBehaviour
     private void Start()
     {
         DontDestroyOnLoad(this.gameObject);
+    }
+
+    private void Update()
+    {
+        if (SceneManager.GetActiveScene().name == "Game" && ActivePlayerCharacter == null)
+        {
+            CmdSpawnPlayerCharacter();
+        }
+    }
+
+    [Command]
+    void CmdSpawnPlayerCharacter()
+    {
+        GameObject Character = Instantiate(PlayerCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        NetworkServer.Spawn(Character, connectionToClient);
+        ActivePlayerCharacter = Character;
     }
 
     private void PlayerReadyUpdate(bool oldValue, bool newValue)
@@ -100,7 +120,6 @@ public class PlayerObjectController : NetworkBehaviour
 
 
     //Start Game
-
     public void CanStartGame(string SceneName)
     {
         if (hasAuthority)
@@ -114,5 +133,4 @@ public class PlayerObjectController : NetworkBehaviour
     {
         manager.StartGame(SceneName);
     }
-
 }
