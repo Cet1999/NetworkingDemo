@@ -38,7 +38,7 @@ public class PlayerObjectController : NetworkBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Game" && ActivePlayerCharacter == null)
+        if (SceneManager.GetActiveScene().name == "Game" && ActivePlayerCharacter == null && isLocalPlayer)
         {
             CmdSpawnPlayerCharacter();
         }
