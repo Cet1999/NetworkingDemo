@@ -27,6 +27,15 @@ public class VoiceChat : NetworkBehaviour
         {
             AS.spatialBlend = 0;
         }
+
+        if(GetComponent<PlayerObjectController>().ActivePlayerCharacter)
+        {
+            AS = GetComponent<PlayerObjectController>().ActivePlayerCharacter.GetComponent<AudioSource>();
+        } else
+        {
+            AS = GetComponent<AudioSource>();
+        }
+
         if (Identity.isLocalPlayer)
         {
             if (Input.GetKeyDown(KeyCode.T))

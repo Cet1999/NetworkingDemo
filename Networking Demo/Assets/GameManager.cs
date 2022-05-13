@@ -5,11 +5,20 @@ using Mirror;
 
 public class GameManager : NetworkBehaviour
 {
+    public static GameManager instance;
     public PlayerObjectController LocalPlayerManager;
     CustomNetworkManager NetworkManager;
     
     void Start()
     {
+        if (!instance)
+        {
+            instance = this;
+        } else
+        {
+            Destroy(this);
+        }
+
         NetworkManager = FindObjectOfType<CustomNetworkManager>();
         if (LocalPlayerManager == null)
         {
