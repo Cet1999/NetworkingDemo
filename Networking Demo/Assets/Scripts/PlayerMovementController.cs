@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class PlayerMovementController : NetworkBehaviour
 {
     public float Speed = 0.1f;
-    public GameObject PlayerModel;
 
     private void Start()
     {
