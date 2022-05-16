@@ -6,7 +6,7 @@ using Mirror;
 public class PlayerCharacterController : NetworkBehaviour
 {
     public NameTag NameTagRef;
-    public PlayerObjectController PlayerManagerRef;
+    [SyncVar] public PlayerObjectController PlayerManagerRef;
     void Start()
     {
         

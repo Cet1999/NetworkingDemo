@@ -47,8 +47,14 @@ public class PlayerObjectController : NetworkBehaviour
     public void CmdSpawnPlayerCharacter()
     {
         GameObject Character = Instantiate(PlayerCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        Character.GetComponent<PlayerCharacterController>().PlayerManagerRef = this;
+        Character.GetComponent<PlayerCharacterController>().UpdatePlayerName(this.PlayerName);
         NetworkServer.Spawn(Character, connectionToClient);
         ActivePlayerCharacter = Character;
+    }
+
+    public void UpdateCharacterNameTag()
+    {
         ActivePlayerCharacter.GetComponent<PlayerCharacterController>().UpdatePlayerName(PlayerName);
     }
 
