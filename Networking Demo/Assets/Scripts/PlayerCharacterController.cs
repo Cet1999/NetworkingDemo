@@ -6,19 +6,19 @@ using Mirror;
 public class PlayerCharacterController : NetworkBehaviour
 {
     public NameTag NameTagRef;
-    [SyncVar] public PlayerObjectController PlayerManagerRef;
+    [SyncVar (hook = nameof(UpdatePlayerName))] public PlayerObjectController PlayerManagerRef;
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
     }
-    public void UpdatePlayerName(string name)
+    public void UpdatePlayerName(PlayerObjectController Old, PlayerObjectController New)
     {
-        NameTagRef.UpdateName(name);
+        NameTagRef.UpdateName(New.PlayerName);
     }
 }
