@@ -32,6 +32,17 @@ public class GameManager : NetworkBehaviour
                 }
             }
         }
+        if (LocalPlayerManager.isServer)
+        {
+            Debug.Log("This is Server!");
+            int PlayerCount = NetworkManager.GamePlayers.Count;
+            foreach(PlayerObjectController player in NetworkManager.GamePlayers)
+            {
+                player.PlayerRole = Role.Human;
+            }
+            int Demon = Random.Range(0, PlayerCount);
+            NetworkManager.GamePlayers[Demon].PlayerRole = Role.Demon;
+        }
         SpawnLocalPlayer();
     }
 
@@ -40,6 +51,8 @@ public class GameManager : NetworkBehaviour
     {
 
     }
+
+
 
     public void SpawnLocalPlayer()
     {

@@ -5,14 +5,18 @@ using Mirror;
 using Steamworks;
 using UnityEngine.SceneManagement;
 
+public enum Role { Human, Demon, InfectedHuman };
+
 public class PlayerObjectController : NetworkBehaviour
 {
+
     //Player Data
     [SyncVar] public int ConnectionID;
     [SyncVar] public int PlayerIdNumber;
     [SyncVar] public ulong PlayerSteamID;
     [SyncVar(hook = nameof(PlayerNameUpdate))] public string PlayerName;
     [SyncVar(hook = nameof(PlayerReadyUpdate))] public bool Ready;
+    [SyncVar] public Role PlayerRole;
 
     public GameObject PlayerCharacterPrefab;
     [SyncVar] public GameObject ActivePlayerCharacter;
