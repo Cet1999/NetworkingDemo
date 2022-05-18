@@ -18,7 +18,8 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar(hook = nameof(PlayerReadyUpdate))] public bool Ready;
     [SyncVar] public Role PlayerRole;
 
-    public GameObject PlayerCharacterPrefab;
+    public GameObject HumanCharacterPrefab;
+    public GameObject DemonCharacterPrefab;
     [SyncVar] public GameObject ActivePlayerCharacter;
 
     private CustomNetworkManager manager;
@@ -50,7 +51,15 @@ public class PlayerObjectController : NetworkBehaviour
     [Command]
     public void CmdSpawnPlayerCharacter()
     {
-        GameObject Character = Instantiate(PlayerCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        GameObject Character = null;
+        if (PlayerRole == Role.Human)
+        {
+            Character = Instantiate(HumanCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        }
+        else if (PlayerRole == Role.Demon)
+        {
+            Character = Instantiate(DemonCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+        }
         Character.GetComponent<PlayerCharacterController>().PlayerManagerRef = this;
         NetworkServer.Spawn(Character, connectionToClient);
         ActivePlayerCharacter = Character;
