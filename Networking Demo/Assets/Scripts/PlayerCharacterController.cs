@@ -16,7 +16,13 @@ public class PlayerCharacterController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        if (!Horns.activeSelf && PlayerManagerRef.PlayerRole == Role.InfectedHuman)
+        {
+            if (GameManager.instance.LocalPlayerManager.PlayerRole == Role.Demon || GameManager.instance.LocalPlayerManager.PlayerRole == Role.InfectedHuman)
+            {
+                Horns.SetActive(true);
+            }
+        }
     }
 
     public void UpdatePlayerName(PlayerObjectController Old, PlayerObjectController New)
@@ -26,9 +32,12 @@ public class PlayerCharacterController : NetworkBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (PlayerManagerRef.PlayerRole == Role.Demon && collision.gameObject.tag == "PlayerCharacter")
+        if (hasAuthority)
         {
-            Infect(collision.gameObject.GetComponent<PlayerCharacterController>());
+            if (PlayerManagerRef.PlayerRole == Role.Demon && collision.gameObject.tag == "PlayerCharacter")
+            {
+                Infect(collision.gameObject.GetComponent<PlayerCharacterController>());
+            }
         }
     }
 
@@ -36,14 +45,10 @@ public class PlayerCharacterController : NetworkBehaviour
     private void Infect(PlayerCharacterController Character)
     {
         Character.PlayerManagerRef.PlayerRole = Role.InfectedHuman;
-        Character.GetInfected();
     }
 
     public void GetInfected()
     {
-        if (GameManager.instance.LocalPlayerManager.PlayerRole == Role.Demon || GameManager.instance.LocalPlayerManager.PlayerRole == Role.InfectedHuman)
-        {
-            Horns.SetActive(true);
-        }
+
     }
 }
