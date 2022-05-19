@@ -16,7 +16,7 @@ public class PlayerCharacterController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (!Horns.activeSelf && PlayerManagerRef.PlayerRole == Role.InfectedHuman)
+        if (PlayerManagerRef.PlayerRole == Role.InfectedHuman && !Horns.activeSelf)
         {
             if (GameManager.instance.LocalPlayerManager.PlayerRole == Role.Demon || GameManager.instance.LocalPlayerManager.PlayerRole == Role.InfectedHuman)
             {
