@@ -19,5 +19,6 @@ public class UIManager : MonoBehaviour
     void Update()
     {
         SpeakingIcon.SetActive(GameManager.instance.LocalPlayerManager.gameObject.GetComponent<VoiceChat>().isTalking);
+        RoleAssignment.text = "Demon: " + GameManager.instance.GetDemonCharacter().PlayerName;
     }
 }
