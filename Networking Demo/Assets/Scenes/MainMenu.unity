@@ -1685,6 +1685,7 @@ MonoBehaviour:
   spawnPrefabs:
   - {fileID: 6966547381864917919, guid: 33e9ee5f0c659344e93e701bad7d4338, type: 3}
   - {fileID: 6061650583642394131, guid: 8db9610281f20384b8701e685df8dce5, type: 3}
+  - {fileID: 6061650583642394131, guid: a24946fe3f5929b4b818b9bf7fce8b9d, type: 3}
   GamePlayerPrefab: {fileID: 7088520109087995208, guid: 33e9ee5f0c659344e93e701bad7d4338, type: 3}
 --- !u!4 &2017064682
 Transform:

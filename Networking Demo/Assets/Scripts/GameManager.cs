@@ -7,6 +7,7 @@ public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
     public PlayerObjectController LocalPlayerManager;
+    public PlayerObjectController DemonPlayerManager;
     CustomNetworkManager NetworkManager;
     
     void Start()
@@ -52,7 +53,26 @@ public class GameManager : NetworkBehaviour
 
     }
 
-
+    public PlayerObjectController GetDemonCharacter()
+    {
+        if (DemonPlayerManager != null)
+        {
+            return DemonPlayerManager;
+        }
+        else
+        {
+            PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
+            foreach (PlayerObjectController g in AllPlayerManagers)
+            {
+                if (g.PlayerRole == Role.Demon)
+                {
+                    DemonPlayerManager = g;
+                }
+            }
+            return DemonPlayerManager;
+        }
+        return null;
+    }
 
     public void SpawnLocalPlayer()
     {
