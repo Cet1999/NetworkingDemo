@@ -7,6 +7,7 @@ public class PlayerCharacterController : NetworkBehaviour
 {
     public NameTag NameTagRef;
     [SyncVar (hook = nameof(UpdatePlayerName))] public PlayerObjectController PlayerManagerRef;
+    public GameObject Horns;
     void Start()
     {
 
@@ -35,5 +36,14 @@ public class PlayerCharacterController : NetworkBehaviour
     private void Infect(PlayerCharacterController Character)
     {
         Character.PlayerManagerRef.PlayerRole = Role.InfectedHuman;
+        Character.GetInfected();
+    }
+
+    public void GetInfected()
+    {
+        if (GameManager.instance.LocalPlayerManager.PlayerRole == Role.Demon || GameManager.instance.LocalPlayerManager.PlayerRole == Role.InfectedHuman)
+        {
+            Horns.SetActive(true);
+        }
     }
 }
