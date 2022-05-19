@@ -156,6 +156,7 @@ MonoBehaviour:
   syncMode: 0
   syncInterval: 0.1
   LocalPlayerManager: {fileID: 0}
+  DemonPlayerManager: {fileID: 0}
 --- !u!4 &134821971
 Transform:
   m_ObjectHideFlags: 0
@@ -729,6 +730,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   SpeakingIcon: {fileID: 293927499}
+  RoleAssignment: {fileID: 810299514}
 --- !u!1 &810299512
 GameObject:
   m_ObjectHideFlags: 0

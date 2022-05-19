@@ -17,8 +17,23 @@ public class PlayerCharacterController : NetworkBehaviour
     {
 
     }
+
     public void UpdatePlayerName(PlayerObjectController Old, PlayerObjectController New)
     {
         NameTagRef.UpdateName(New.PlayerName);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (PlayerManagerRef.PlayerRole == Role.Demon && collision.gameObject.tag == "PlayerCharacter")
+        {
+            Infect(collision.gameObject.GetComponent<PlayerCharacterController>());
+        }
+    }
+
+    [Command]
+    private void Infect(PlayerCharacterController Character)
+    {
+        Character.PlayerManagerRef.PlayerRole = Role.InfectedHuman;
     }
 }
