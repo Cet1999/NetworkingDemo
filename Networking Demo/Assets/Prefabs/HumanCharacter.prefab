@@ -99,7 +99,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3757180628916014422
 Transform:
   m_ObjectHideFlags: 0
@@ -422,6 +422,7 @@ MonoBehaviour:
   syncInterval: 0.1
   NameTagRef: {fileID: 2976391190280326557}
   PlayerManagerRef: {fileID: 0}
+  Horns: {fileID: 2940139798853427391}
 --- !u!114 &2451348600064566327
 MonoBehaviour:
   m_ObjectHideFlags: 0
