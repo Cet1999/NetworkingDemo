@@ -6,6 +6,7 @@ using Mirror;
 public class PlayerCharacterController_BombTag : PlayerCharacterController
 {
     public Transform BombHoldingPosition;
+    public float InvincibleTime;
     // Start is called before the first frame update
     void Start()
     {
@@ -15,7 +16,10 @@ public class PlayerCharacterController_BombTag : PlayerCharacterController
     // Update is called once per frame
     void Update()
     {
-        
+        if (InvincibleTime > 0)
+        {
+            InvincibleTime -= Time.deltaTime;
+        }
     }
     private void OnCollisionEnter(Collision collision)
     {
@@ -31,7 +35,11 @@ public class PlayerCharacterController_BombTag : PlayerCharacterController
     [Command]
     private void PassBomb(PlayerCharacterController_BombTag Character)
     {
-        PlayerManagerRef.HoldingBomb = false;
-        Character.PlayerManagerRef.HoldingBomb = true;
+        if (Character.InvincibleTime <= 0)
+        {
+            PlayerManagerRef.HoldingBomb = false;
+            Character.PlayerManagerRef.HoldingBomb = true;
+            InvincibleTime += 2;
+        }
     }
 }

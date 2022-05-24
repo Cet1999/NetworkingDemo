@@ -20,7 +20,7 @@ public class PlayerMovementController : NetworkBehaviour
             if (hasAuthority)
             {
                 Movement();
-            }        
+            }
         }
     }
 
@@ -34,8 +34,6 @@ public class PlayerMovementController : NetworkBehaviour
         float xDirection = Input.GetAxis("Horizontal");
         float zDirection = Input.GetAxis("Vertical");
 
-        Vector3 moveDirection = new Vector3(xDirection, 0.0f, zDirection);
-
-        transform.position += moveDirection * Speed;
+        GetComponent<CharacterController>().Move(new Vector3(xDirection, GetComponent<Rigidbody>().velocity.y, zDirection) * Speed * Time.deltaTime);
     }
 }

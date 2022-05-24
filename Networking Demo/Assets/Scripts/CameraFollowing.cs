@@ -28,6 +28,7 @@ public class CameraFollowing : MonoBehaviour
             pos.z = LocalPlayerCharacter.transform.position.z + -10f;
             pos.y = LocalPlayerCharacter.transform.position.y + 13f;
 
+            //transform.position = pos;
             transform.position += (pos - transform.position) / 10;
         }
     }
