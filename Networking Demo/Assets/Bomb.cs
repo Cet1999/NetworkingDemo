@@ -5,7 +5,7 @@ using Mirror;
 
 public class Bomb : MonoBehaviour
 {
-    PlayerCharacterController_BombTag BombHoldingPlayerCharacterRef;
+    public PlayerCharacterController_BombTag BombHoldingPlayerCharacterRef;
     // Start is called before the first frame update
     void Start()
     {
