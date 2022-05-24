@@ -95,22 +95,15 @@ public class GameManager : NetworkBehaviour
     //BombTag Mode Specific
     public PlayerObjectController GetBombHoldingCharacter()
     {
-        if (BombPlayerManager != null)
+        PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
+        foreach (PlayerObjectController g in AllPlayerManagers)
         {
-            return BombPlayerManager;
-        }
-        else
-        {
-            PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
-            foreach (PlayerObjectController g in AllPlayerManagers)
+            if (g.HoldingBomb)
             {
-                if (g.HoldingBomb)
-                {
-                    BombPlayerManager = g;
-                }
+                BombPlayerManager = g;
             }
-            return BombPlayerManager;
         }
+        return BombPlayerManager;
     }
 
     //Demon Mode Specific
