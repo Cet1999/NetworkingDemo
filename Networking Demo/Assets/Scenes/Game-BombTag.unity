@@ -155,8 +155,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   syncMode: 0
   syncInterval: 0.1
+  GameMode: 0
   LocalPlayerManager: {fileID: 0}
   DemonPlayerManager: {fileID: 0}
+  BombPlayerManager: {fileID: 0}
 --- !u!4 &134821971
 Transform:
   m_ObjectHideFlags: 0
@@ -1053,3 +1055,60 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a1be72de741dbc4492e9eddeaf8dc4a, type: 3}
+--- !u!1001 &4477891604024447604
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_RootOrder
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.84
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 3.21
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.209
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133019, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4477891604488133023, guid: b5096c5796d646b439a49bee439158d1, type: 3}
+      propertyPath: m_Name
+      value: Bomb
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: b5096c5796d646b439a49bee439158d1, type: 3}

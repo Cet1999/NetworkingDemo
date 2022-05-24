@@ -3,13 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using Mirror;
 
+public enum Mode { BombTag, Demon };
+
 public class GameManager : NetworkBehaviour
 {
     public static GameManager instance;
+    public Mode GameMode;
+    CustomNetworkManager NetworkManager;
+
     public PlayerObjectController LocalPlayerManager;
     public PlayerObjectController DemonPlayerManager;
-    CustomNetworkManager NetworkManager;
-    
+
+    [Header("BombTag")]
+    public PlayerObjectController BombPlayerManager;
     void Start()
     {
         if (!instance)
@@ -21,6 +27,7 @@ public class GameManager : NetworkBehaviour
         }
 
         NetworkManager = FindObjectOfType<CustomNetworkManager>();
+        //Find local game player
         if (LocalPlayerManager == null)
         {
             PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
@@ -36,13 +43,23 @@ public class GameManager : NetworkBehaviour
         if (LocalPlayerManager.isServer)
         {
             Debug.Log("This is Server!");
-            int PlayerCount = NetworkManager.GamePlayers.Count;
-            foreach(PlayerObjectController player in NetworkManager.GamePlayers)
+            //Demon Mode
+            if (GameMode == Mode.Demon)
             {
-                player.PlayerRole = Role.Human;
+                int PlayerCount = NetworkManager.GamePlayers.Count;
+                foreach (PlayerObjectController player in NetworkManager.GamePlayers)
+                {
+                    player.PlayerRole = Role.Human;
+                }
+                int Demon = Random.Range(0, PlayerCount);
+                NetworkManager.GamePlayers[Demon].PlayerRole = Role.Demon;
             }
-            int Demon = Random.Range(0, PlayerCount);
-            NetworkManager.GamePlayers[Demon].PlayerRole = Role.Demon;
+            else if (GameMode == Mode.BombTag)
+            {
+                int PlayerCount = NetworkManager.GamePlayers.Count;
+                int FirstBombPlayer = Random.Range(0, PlayerCount);
+                NetworkManager.GamePlayers[FirstBombPlayer].HoldingBomb = true;
+            }
         }
         SpawnLocalPlayer();
     }
@@ -53,27 +70,7 @@ public class GameManager : NetworkBehaviour
 
     }
 
-    public PlayerObjectController GetDemonCharacter()
-    {
-        if (DemonPlayerManager != null)
-        {
-            return DemonPlayerManager;
-        }
-        else
-        {
-            PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
-            foreach (PlayerObjectController g in AllPlayerManagers)
-            {
-                if (g.PlayerRole == Role.Demon)
-                {
-                    DemonPlayerManager = g;
-                }
-            }
-            return DemonPlayerManager;
-        }
-        return null;
-    }
-
+    //General Methods
     public void SpawnLocalPlayer()
     {
         if (LocalPlayerManager.connectionToServer.isReady)
@@ -93,6 +90,49 @@ public class GameManager : NetworkBehaviour
             yield return new WaitForSeconds(0.25f);
         }
         SpawnLocalPlayer();
+    }
+
+    //BombTag Mode Specific
+    public PlayerObjectController GetBombHoldingCharacter()
+    {
+        if (BombPlayerManager != null)
+        {
+            return BombPlayerManager;
+        }
+        else
+        {
+            PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
+            foreach (PlayerObjectController g in AllPlayerManagers)
+            {
+                if (g.HoldingBomb)
+                {
+                    BombPlayerManager = g;
+                }
+            }
+            return BombPlayerManager;
+        }
+    }
+
+    //Demon Mode Specific
+    public PlayerObjectController GetDemonCharacter()
+    {
+        if (DemonPlayerManager != null)
+        {
+            return DemonPlayerManager;
+        }
+        else
+        {
+            PlayerObjectController[] AllPlayerManagers = FindObjectsOfType<PlayerObjectController>();
+            foreach (PlayerObjectController g in AllPlayerManagers)
+            {
+                if (g.PlayerRole == Role.Demon)
+                {
+                    DemonPlayerManager = g;
+                }
+            }
+            return DemonPlayerManager;
+        }
+        return null;
     }
 
 

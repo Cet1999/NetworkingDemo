@@ -15,7 +15,7 @@ public class PlayerMovementController : NetworkBehaviour
 
     private void Update()
     {
-        if(SceneManager.GetActiveScene().name == "Game")
+        if(SceneManager.GetActiveScene().name == "Game-Demon" || SceneManager.GetActiveScene().name == "Game-BombTag")
         {
             if (hasAuthority)
             {
@@ -26,7 +26,7 @@ public class PlayerMovementController : NetworkBehaviour
 
     public void SetPosition()
     {
-        transform.position = new Vector3(Random.Range(-5,5), 0.8f, Random.Range(-15,7));
+        //transform.position = new Vector3(Random.Range(-5,5), 0.8f, Random.Range(-15,7));
     }
 
     public void Movement()

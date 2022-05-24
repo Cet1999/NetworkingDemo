@@ -16,13 +16,18 @@ public class PlayerObjectController : NetworkBehaviour
     [SyncVar] public ulong PlayerSteamID;
     [SyncVar(hook = nameof(PlayerNameUpdate))] public string PlayerName;
     [SyncVar(hook = nameof(PlayerReadyUpdate))] public bool Ready;
-    [SyncVar] public Role PlayerRole;
 
-    public GameObject HumanCharacterPrefab;
-    public GameObject DemonCharacterPrefab;
     [SyncVar] public GameObject ActivePlayerCharacter;
 
     private CustomNetworkManager manager;
+
+    [Header("Demon Mode")]
+    [SyncVar] public Role PlayerRole;
+    public GameObject HumanCharacterPrefab;
+    public GameObject DemonCharacterPrefab;
+    [Header("BombTag Mode")]
+    [SyncVar] public bool HoldingBomb;
+    public GameObject Bomb_PlayerPrefab;
 
     private CustomNetworkManager Manager
     {
@@ -52,15 +57,23 @@ public class PlayerObjectController : NetworkBehaviour
     public void CmdSpawnPlayerCharacter()
     {
         GameObject Character = null;
-        if (PlayerRole == Role.Human)
+        if (GameManager.instance.GameMode == Mode.Demon)
         {
-            Character = Instantiate(HumanCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            if (PlayerRole == Role.Human)
+            {
+                Character = Instantiate(HumanCharacterPrefab, new Vector3(Random.Range(-5, 5), 0.8f, Random.Range(-15, 7)), Quaternion.identity);
+            }
+            else if (PlayerRole == Role.Demon)
+            {
+                Character = Instantiate(DemonCharacterPrefab, new Vector3(Random.Range(-5, 5), 0.8f, Random.Range(7, 10)), Quaternion.identity);
+            }
+            Character.GetComponent<PlayerCharacterController>().PlayerManagerRef = this;
         }
-        else if (PlayerRole == Role.Demon)
+        else if (GameManager.instance.GameMode == Mode.BombTag)
         {
-            Character = Instantiate(DemonCharacterPrefab, new Vector3(0, 0, 0), Quaternion.identity);
+            Character = Instantiate(Bomb_PlayerPrefab, new Vector3(Random.Range(-5, 5), 0.8f, Random.Range(-15, 7)), Quaternion.identity);
+            Character.GetComponent<PlayerCharacterController>().PlayerManagerRef = this;
         }
-        Character.GetComponent<PlayerCharacterController>().PlayerManagerRef = this;
         NetworkServer.Spawn(Character, connectionToClient);
         ActivePlayerCharacter = Character;
     }

@@ -71,10 +71,12 @@ MonoBehaviour:
   PlayerSteamID: 0
   PlayerName: 
   Ready: 0
+  ActivePlayerCharacter: {fileID: 0}
   PlayerRole: 0
   HumanCharacterPrefab: {fileID: 6061650583642394131, guid: a24946fe3f5929b4b818b9bf7fce8b9d, type: 3}
   DemonCharacterPrefab: {fileID: 6061650583642394131, guid: 8db9610281f20384b8701e685df8dce5, type: 3}
-  ActivePlayerCharacter: {fileID: 0}
+  HoldingBomb: 0
+  Bomb_PlayerPrefab: {fileID: 6061650583642394131, guid: 4b50907d55ec0cd43a30c41305ff8c53, type: 3}
 --- !u!114 &141985404447277117
 MonoBehaviour:
   m_ObjectHideFlags: 0

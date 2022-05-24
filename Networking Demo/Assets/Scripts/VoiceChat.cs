@@ -20,7 +20,7 @@ public class VoiceChat : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Game")
+        if (SceneManager.GetActiveScene().name == "Game-BombTag" || SceneManager.GetActiveScene().name == "Game-Demon")
         {
             AS.spatialBlend = 1;
         } else
