@@ -15,10 +15,7 @@ public class Bomb : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (BombHoldingPlayerCharacterRef == null)
-        {
-            BombHoldingPlayerCharacterRef = GameManager.instance.GetBombHoldingCharacter().ActivePlayerCharacter.GetComponent<PlayerCharacterController_BombTag>();
-        }
+        BombHoldingPlayerCharacterRef = GameManager.instance.GetBombHoldingCharacter().ActivePlayerCharacter.GetComponent<PlayerCharacterController_BombTag>();
         transform.position += (BombHoldingPlayerCharacterRef.BombHoldingPosition.position - transform.position) / 5;
     }
 }
