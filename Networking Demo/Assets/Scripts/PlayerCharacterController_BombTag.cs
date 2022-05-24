@@ -19,7 +19,7 @@ public class PlayerCharacterController_BombTag : PlayerCharacterController
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (hasAuthority)
+        if (hasAuthority && collision.gameObject.tag == "PlayerCharacter")
         {
             if (PlayerManagerRef.HoldingBomb)
             {
