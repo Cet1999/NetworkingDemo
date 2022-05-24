@@ -541,6 +541,7 @@ MonoBehaviour:
   NameTagRef: {fileID: 2976391190280326557}
   PlayerManagerRef: {fileID: 0}
   BombHoldingPosition: {fileID: 4529623790153395802}
+  InvincibleTime: 0
 --- !u!143 &-2372580278301124440
 CharacterController:
   m_ObjectHideFlags: 0
