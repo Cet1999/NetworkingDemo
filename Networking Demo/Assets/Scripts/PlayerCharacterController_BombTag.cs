@@ -6,7 +6,7 @@ using Mirror;
 public class PlayerCharacterController_BombTag : PlayerCharacterController
 {
     public Transform BombHoldingPosition;
-    public float InvincibleTime;
+    public float InvincibleTime = -1;
     // Start is called before the first frame update
     void Start()
     {
